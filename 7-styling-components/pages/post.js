@@ -1,4 +1,4 @@
-import Layout from '../components/MyLayout.js'
+import Layout from '../components/learn/MyLayout.js'
 import fetch from 'isomorphic-unfetch'
 
 function Post(props) {
