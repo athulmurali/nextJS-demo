@@ -1,5 +1,6 @@
 import Layout from '../components/MyLayout.js'
 import Link from 'next/link'
+const axios = require('axios');
 
 function PostLink(props) {
   return (
@@ -11,15 +12,30 @@ function PostLink(props) {
   )
 }
 
-export default function Index() {
-  return (
+const Index = props => (
     <Layout>
-      <h1>My Blog</h1>
-      <ul>
-        <PostLink id="hello-nextjs" title="Hello Next.js" />
-        <PostLink id="learn-nextjs" title="Learn Next.js is awesome" />
-        <PostLink id="deploy-nextjs" title="Deploy apps with Zeit" />
-      </ul>
+        <h1>Batman TV Shows</h1>
+        <ul>
+            {props.shows.map(show => (
+                <li key={show.id}>
+                    <Link as={`/p/${show.id}`} href={`/post?id=${show.id}`}>
+                        <a>{show.name}</a>
+                    </Link>
+                </li>
+            ))}
+        </ul>
     </Layout>
-  )
-}
+);
+
+Index.getInitialProps = async function() {
+    const {data} = await axios.get('https://api.tvmaze.com/search/shows?q=batman');
+    console.log(data)
+
+    console.log(`Show data fetched. Count: ${data.length}`);
+
+    return {
+        shows: data.map(entry => entry.show)
+    };
+};
+
+export default Index;
