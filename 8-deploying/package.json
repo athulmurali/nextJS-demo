@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "next start -p $PORT",
+    "build": "next build",
+    "now-build": "next build"
   },
   "keywords": [],
   "author": "",
